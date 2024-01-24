@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  php:
+    build: .
+    volumes:
+      - ./php/php.ini:/usr/local/etc/php/php.ini
+      - ./src/html:/var/www/ecorange
+      - ./000-default.conf:/etc/apache2/sites-available/000-default.conf
+    ports:
+      - 32778:80
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+  db:
+    image: mysql:5.7
+    volumes:
+      - ./mysql:/var/lib/mysql
+      - ./my.cnf:/etc/mysql/conf.d/my.cnf
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: ecorange
+      MYSQL_USER: ecorange_user
+      MYSQL_PASSWORD: ecorange_password
+    command: --innodb-use-native-aio=0
+    ports:
+      - "32780:3306"
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    depends_on:
+      - db
+    environment:
+      PMA_ARBITRARY: 1
+      PMA_HOST: db
+      PMA_USER: ecorange_user
+      PMA_PASSWORD: ecorange_password
+    restart: always
+    ports:
+      - '32779:80'
