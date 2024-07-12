@@ -35,4 +35,4 @@ services:
       PMA_PASSWORD: ecorange_password
     restart: always
     ports:
-      - '32779:80'
+      - '32779:80'test
