@@ -26,4 +26,5 @@ phomyadmin => docker exec -it phpmyadmin bash
 docker-compose stop
 ------------------------------------------------------------------
 
+TEST0
 TEST1
