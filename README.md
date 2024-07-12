@@ -25,3 +25,5 @@ phomyadmin => docker exec -it phpmyadmin bash
 #コンテナ停止
 docker-compose stop
 ------------------------------------------------------------------
+
+TEST
